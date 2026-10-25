@@ -1,0 +1,10 @@
+# renders, voice takes and keys stay on your machine
+out/
+vo/
+timeline.json
+.env
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.cache/

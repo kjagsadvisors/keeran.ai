@@ -1,0 +1,15 @@
+{
+ "name": "windows-starter",
+ "music": {"file": "song.m4a", "start": 0.0, "gain": 0.7},
+ "mix": {"duck": 0.6},
+ "lock": {"bar": 0.7},
+ "windows": {"source": "code", "seed": 7},
+ "scenes": [
+  {"type": "line", "vo": "these windows aren't edited by hand."},
+  {"type": "line", "vo": "the song turns them on and off."},
+  {"type": "line", "dur": 3.0},
+  {"type": "line", "vo": "made with claude."},
+  {"type": "line", "vo": "it works with *any* song.", "show": "line", "on": "drop"},
+  {"type": "line", "vo": "follow for the next one.", "caption": "follow for *more*", "hold": 1.6}
+ ]
+}
