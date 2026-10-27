@@ -4,6 +4,7 @@ Claude Code skills from [keeran.ai](https://keeran-ai.beehiiv.com). Each folder 
 
 | skill | what it makes |
 |---|---|
+| [hormozi-vsl](hormozi-vsl) | A finished VSL (video sales letter) for any offer, Hormozi-style: Claude asks you about your offer, your answers become the script, then you record it in your voice or film it on your phone. 1080p MP4. |
 | [window-visualizer](window-visualizer) | A building at night whose windows flash with any song, in your voice, every line on the beat. 9:16 MP4. |
 | [launch-video](https://keeran-ai.beehiiv.com/products/launch-video) | Kinetic-type product launch videos in code, in your own voice (free download on keeran.ai). |
 

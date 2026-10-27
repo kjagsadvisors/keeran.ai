@@ -1,0 +1,35 @@
+{
+  "name": "vsl-skeleton",
+  "format": "16:9",
+  "brand": {"name": "Your Company"},
+  "theme": {"accent": "#0DDD4B"},
+  "music": false,
+  "mix": {"vo": 1.0, "duck": 0.55, "sfx": 0.3},
+  "vo": {"lead": 0.04, "pre": 0.06, "post": 0.18, "hold": 0.45, "level": -17, "denoise_db": 12},
+  "scenes": [
+    {"type": "text", "bg": "dark", "vo": "PROMISE: what they get, with the [outcome] in a pill."},
+    {"type": "text", "bg": "dark", "mode": "type", "vo": "PAIN: one specific moment they live with now."},
+    {"type": "cards", "bg": "light", "layout": "row", "vo": "PROOF: this one, and this one, and this one.",
+     "items": [{"src": "assets/after.jpg", "label": "Job 1"}, {"src": "assets/after1.jpg", "label": "Job 2"}, {"src": "assets/after.jpg", "label": "Job 3"}]},
+    {"type": "chips", "bg": "light", "vo": "PLAN: how it works, your questions, then your next step.",
+     "items": ["How it works", "→", "Your questions", "→", "Next step"]},
+
+    {"type": "text", "bg": "dark", "vo": "[Part one:] how it works."},
+    {"type": "hero", "vo": "Meet"},
+    {"type": "logo", "vo": "Your Company. The METHOD NAME.", "tagline": "The *METHOD NAME*"},
+    {"type": "ui", "bg": "light", "frame": "none", "src": "assets/before.jpg", "dur": 2.4, "vo": "STEP ONE: what happens, shown in a real photo.",
+     "cam": [{"at": 0, "s": 1}, {"at": 1.2, "to": [0.3, 0.3, 0.4, 0.4], "fill": 0.6}]},
+    {"type": "chips", "bg": "light", "vo": "THE STEPS as a flow: design, prep, build, walkthrough.",
+     "items": ["Design", "→", "Prep", "→", "Build", "→", "Walkthrough"]},
+
+    {"type": "text", "bg": "dark", "vo": "[Part two:] what people worry about."},
+    {"type": "text", "bg": "dark", "vo": "WHAT THEY THINK: _the belief, in their words._"},
+    {"type": "text", "bg": "dark", "vo": "WHY IT'S WRONG, and [what's actually true.]"},
+    {"type": "ui", "bg": "light", "frame": "none", "src": "assets/before.jpg", "dur": 2.4, "vo": "PROOF: a real job, before."},
+    {"type": "ui", "bg": "light", "frame": "none", "src": "assets/after.jpg", "dur": 2.4, "vo": "And after, with a real number: {48} hours."},
+
+    {"type": "text", "bg": "dark", "vo": "[Part three:] your next step."},
+    {"type": "text", "bg": "glow", "vo": "CTA: the one action, like [text us now.]", "sub": "what happens after they do it"},
+    {"type": "text", "bg": "dark", "vo": "P.S. one-line recap, or who this isn't for.", "hold": 2.5}
+  ]
+}
