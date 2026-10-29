@@ -3,6 +3,9 @@
 It makes a finished lead magnet for your business: a page that works, the post that gives it away, and a plan for
 testing its name.
 
+**This is its own skill,** separate from [hormozi-vsl](../hormozi-vsl). It doesn't need the VSL skill or
+launch-video.
+
 **It's built on the lead magnet method from Alex Hormozi's *$100M Leads*:**
 1. Pick one narrow problem your buyer has, and solve it completely, for free. Solving it should reveal the next
    problem, the one your paid offer solves.
@@ -34,6 +37,15 @@ The page runs on any host (Netlify Drop, Vercel, GitHub Pages, your own site). P
 or a Zapier/Make webhook, and a qualifying question sends qualified and unqualified leads to different next steps.
 
 ## Install
+
+**The easy way:** paste this folder's link into Claude Code (or ChatGPT's Codex) and say "set up this skill and build
+me a lead magnet":
+
+```
+https://github.com/kjagsadvisors/keeran.ai/tree/main/hormozi-lead-magnet
+```
+
+**By hand:**
 
 1. Put the `hormozi-lead-magnet` folder in `~/.claude/skills/`.
 2. You need Python 3 and Google Chrome (for restyling to your site, the PDF and screenshots).

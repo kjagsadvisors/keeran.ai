@@ -15,4 +15,6 @@ Claude Code skills from [keeran.ai](https://keeran-ai.beehiiv.com). Each folder 
 2. Copy the skill's folder into `~/.claude/skills/` (every project) or `<your project>/.claude/skills/` (one project).
 3. Follow that skill's README for its one-time setup, then ask Claude Code for what it makes.
 
+Or skip all that: paste the skill's folder link (e.g. github.com/kjagsadvisors/keeran.ai/tree/main/hormozi-lead-magnet) into Claude Code or ChatGPT's Codex and ask it to set the skill up. Each skill is separate: install only the one you want.
+
 New skills land here as they're made.
