@@ -3,9 +3,6 @@
 It makes a finished lead magnet for your business: a page that works, the post that gives it away, and a plan for
 testing its name.
 
-**This is its own skill,** separate from [hormozi-vsl](../hormozi-vsl). It doesn't need the VSL skill or
-launch-video.
-
 **It's built on the lead magnet method from Alex Hormozi's *$100M Leads*:**
 1. Pick one narrow problem your buyer has, and solve it completely, for free. Solving it should reveal the next
    problem, the one your paid offer solves.
