@@ -1,0 +1,74 @@
+{
+  "type": "assessment",
+  "brand": { "name": "[Your business]", "color": "#1f5eff" },
+  "who": "[Who it's for, e.g. For HVAC owners doing $1-5M a year]",
+  "title": "[Name from the tested options, e.g. The 4 Leaks Keeping Your Business Under $5M]",
+  "subtitle": "[The result, not the vehicle. e.g. Answer 6 questions. See exactly what's costing you jobs.]",
+  "start": "Take the 2-minute assessment",
+  "time": "6 questions · about 2 minutes",
+  "proof": [
+    { "text": "[A real result in a customer's words, e.g. \"We booked 31 more jobs in March.\"]", "who": "[Name, business, city]" }
+  ],
+  "questions": [
+    {
+      "q": "[Question 1: checks for the first problem you always find, in your words]",
+      "options": [
+        { "label": "[Healthy answer]", "points": 2 },
+        { "label": "[Middle answer]", "points": 1, "problem": "[What this answer means, specifically. Be specific on the negative.]" },
+        { "label": "[Bad answer]", "points": 0, "problem": "[What this answer costs them, with a real number if you have one]" }
+      ]
+    },
+    {
+      "q": "[Question 2]",
+      "options": [
+        { "label": "[Healthy answer]", "points": 2 },
+        { "label": "[Bad answer]", "points": 0, "problem": "[The problem it reveals]" }
+      ]
+    },
+    {
+      "q": "[Question 3: a problem that gets worse while they wait]",
+      "options": [
+        { "label": "[Healthy answer]", "points": 2 },
+        { "label": "[Middle answer]", "points": 1, "problem": "[The problem, and why it gets worse every month]" },
+        { "label": "[Bad answer]", "points": 0, "problem": "[The problem, and why it gets worse every month]" }
+      ]
+    }
+  ],
+  "results": [
+    { "min": 0, "max": 49, "label": "[Bucket name for low scores]", "body": "[What it means, in one or two lines]", "delta": "[Where they are vs where they could be, in your real numbers]" },
+    { "min": 50, "max": 79, "label": "[Bucket name for middle scores]", "body": "[What it means]", "delta": "[The delta]" },
+    { "min": 80, "max": 100, "label": "[Bucket name for high scores]", "body": "[What it means]" }
+  ],
+  "problems_title": "{n} things your answers revealed",
+  "next_problem": "[What they'll hit once these are fixed, which is the thing your paid offer solves]",
+  "capture": {
+    "action": "",
+    "fields": ["name", "email"],
+    "button": "Show my results",
+    "fine": "[One line on what happens to their email, e.g. You'll get your results and one email a week. Unsubscribe anytime.]",
+    "qualify": {
+      "label": "[Qualifying question, e.g. What's your yearly revenue?]",
+      "options": [
+        { "label": "[Qualified answer]", "route": "main" },
+        { "label": "[Qualified answer]", "route": "main" },
+        { "label": "[Not a fit yet]", "route": "later" }
+      ]
+    }
+  },
+  "gate": { "title": "Your results are ready", "text": "Where should we send them?" },
+  "cta": {
+    "main": {
+      "text": "[Clear next step, e.g. Book a 20-minute call and we'll fix the biggest one with you]",
+      "reason": "[A real reason to act now, e.g. We take 4 new clients a month.]",
+      "button": "Book my call",
+      "url": "[https://your-booking-link]",
+      "alt": "[Another way to act, e.g. Or text us at 555-0100]"
+    },
+    "later": {
+      "text": "[What not-yet-qualified people get instead, e.g. Start with the free guide]",
+      "reason": "[Why this is the right next step for them]",
+      "button": "Get the guide",
+      "url": "[https://link]"
+    }
+  }
+}
