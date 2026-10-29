@@ -35,11 +35,11 @@ or a Zapier/Make webhook, and a qualifying question sends qualified and unqualif
 
 ## Install
 
-**The easy way:** paste this folder's link into Claude Code (or ChatGPT's Codex) and say "set up this skill and build
-me a lead magnet":
+**The easy way:** paste the repo link into Claude Code (or ChatGPT's Codex) and say "set up the hormozi-lead-magnet
+skill and build me a lead magnet":
 
 ```
-https://github.com/kjagsadvisors/keeran.ai/tree/main/hormozi-lead-magnet
+https://github.com/kjagsadvisors/keeran.ai
 ```
 
 **By hand:**
