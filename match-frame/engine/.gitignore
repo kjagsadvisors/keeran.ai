@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+.DS_Store
+*.mp4
+!public/**/*.mp4
+blender/assets/
+blender/build/
+public/audio/ref-*
+public/shots/*.jpg

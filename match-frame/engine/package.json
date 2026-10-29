@@ -1,0 +1,32 @@
+{
+  "name": "match-frame",
+  "version": "1.0.0",
+  "description": "Match-frame brand reels (9:16): beat-synced hard cuts between light/dark shot pairs with the logo held on one match point",
+  "scripts": {
+    "studio": "npx remotion studio",
+    "sheet": "npx remotion still src/index.ts ContactSheet out/contact-sheet.png",
+    "still": "npx remotion still src/index.ts MatchFrame out/still.png --frame=0",
+    "render:preview": "npx remotion render src/index.ts MatchFrame out/preview.mp4 --scale=0.5",
+    "render": "npx remotion render src/index.ts MatchFrame out/match-frame.mp4 && python3 scripts/align_audio.py out/match-frame.mp4 public/audio/ref-streak.m4a --upload",
+    "render:ramp": "npx remotion render src/index.ts MatchFrameRamp out/match-frame-ramp.mp4 && python3 scripts/align_audio.py out/match-frame-ramp.mp4 public/audio/ref-skillshift.m4a --upload",
+    "cuts": "python3 scripts/cuts_from_track.py",
+    "align": "python3 scripts/align_audio.py",
+    "textures": "for t in LogoMask LockupMask ScreenA ScreenB; do npx remotion still src/index.ts $t blender/build/$t.png --image-format=png || exit 1; done",
+    "shots": "/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P blender/render_shots.py --",
+    "assets": "python3 blender/fetch_assets.py",
+    "measure": "node scripts/measure.mjs",
+    "build": "npx remotion bundle src/index.ts",
+    "upgrade": "npx remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.425",
+    "@remotion/google-fonts": "4.0.425",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "4.0.425"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}

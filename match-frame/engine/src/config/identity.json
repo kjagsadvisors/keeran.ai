@@ -1,0 +1,17 @@
+{
+  "brand": {
+    "name": "Northfold",
+    "tagline": "Interiors with a quiet edge",
+    "logo": "brand/logo.svg",
+    "colors": {
+      "ink": "#141414",
+      "paper": "#ECEAE6",
+      "primary": "#1E3B33",
+      "onPrimary": "#ECEAE6",
+      "accent": "#D8C6A5",
+      "onAccent": "#141414"
+    },
+    "font": "space-grotesk"
+  },
+  "match": { "x": 0.5, "y": 0.46, "width": 0.2 }
+}

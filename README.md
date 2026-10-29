@@ -6,6 +6,7 @@ Claude Code skills from [keeran.ai](https://keeran-ai.beehiiv.com). Each folder 
 |---|---|
 | [hormozi-lead-magnet](hormozi-lead-magnet) | A finished lead magnet for any business, Hormozi-style: Claude asks about your offer, picks one of his three lead magnet types, names it with his formulas, and builds a working page (a scored assessment, a step-by-step guide that also saves as a PDF, or a free-audit claim page), restyled to your own website's colours, fonts and logo. |
 | [hormozi-vsl](hormozi-vsl) | A finished VSL (video sales letter) for any offer, Hormozi-style: Claude asks you about your offer, your answers become the script, then you record it in your voice or film it on your phone. 1080p MP4. |
+| [match-frame](match-frame) | A match-cut brand identity reel for any logo: your mark holds still while photoreal mockups of it, rendered in Blender, flash dark and light around it, cut to the music. 9:16 MP4. |
 | [window-visualizer](window-visualizer) | A building at night whose windows flash with any song, in your voice, every line on the beat. 9:16 MP4. |
 | [launch-video](https://keeran-ai.beehiiv.com/products/launch-video) | Kinetic-type product launch videos in code, in your own voice (free download on keeran.ai). |
 

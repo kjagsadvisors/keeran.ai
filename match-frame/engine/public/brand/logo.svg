@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120">
+  <!-- Sample mark for the fictional "Northfold" studio. Replace with your own single-colour SVG. -->
+  <path d="M0 0H34V120H0Z" fill="#000"/>
+  <path d="M48 0H86L152 120H114Z" fill="#000"/>
+  <path d="M166 0H200V120H166Z" fill="#000"/>
+</svg>
