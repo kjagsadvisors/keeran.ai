@@ -1,0 +1,7 @@
+{
+  "name": "link-edit-fx",
+  "private": true,
+  "type": "module",
+  "description": "Frame-by-frame effect renderer for the link-edit skill.",
+  "dependencies": { "playwright-core": "1.48.2" }
+}
