@@ -8,6 +8,7 @@ Claude Code skills from [keeran.ai](https://keeran-ai.beehiiv.com). Each folder 
 | [hormozi-vsl](hormozi-vsl) | A finished VSL (video sales letter) for any offer, Hormozi-style: Claude asks you about your offer, your answers become the script, then you record it in your voice or film it on your phone. 1080p MP4. |
 | [link-edit](link-edit) | A finished edit from a link: Claude scrapes a site's real logo, pages, headlines, prices and fonts with context.dev and puts them around you in your talking-head clip. Five commands. 9:16 MP4. |
 | [match-frame](match-frame) | A match-cut brand identity reel for any logo: your mark holds still while photoreal mockups of it, rendered in Blender, flash dark and light around it, cut to the music. 9:16 MP4. |
+| [reverse-video](reverse-video) | The editing style of any reel, from its link (travel montages, cinematic edits, talking heads): context.dev scrapes the reel or TikTok, every frame is measured (cuts, pacing, transitions, framing, colour grade, captions, the beat and the drop) into a STYLE.md, and Claude edits your footage the same way. |
 | [window-visualizer](window-visualizer) | A building at night whose windows flash with any song, in your voice, every line on the beat. 9:16 MP4. |
 | [launch-video](https://keeran-ai.beehiiv.com/products/launch-video) | Kinetic-type product launch videos in code, in your own voice (free download on keeran.ai). |
 
