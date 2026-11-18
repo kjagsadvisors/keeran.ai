@@ -1,6 +1,6 @@
 # keeran.ai skills
 
-Claude Code skills from [keeran.ai](https://keeran-ai.beehiiv.com). Each folder is one skill.
+Claude Code skills by [Keeran](https://keeranai.com) (Keeran Jagadesan, [@keeran.ai](https://instagram.com/keeran.ai)), from the [keeran.ai newsletter](https://keeran-ai.beehiiv.com). Each folder is one skill.
 
 | skill | what it makes |
 |---|---|
