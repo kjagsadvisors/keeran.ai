@@ -1,0 +1,13 @@
+reverse-growth
+
+The idea and the order of the steps (site, company and news, when it grew, search, ads, who talks about it, own
+content channel by channel, loops, hiring, moves against the curve, the path, ten plays with prompts) follow
+rea-growth by Superdesign Dev Pty Ltd (https://github.com/superdesigndev/treg, skills/rea-growth), licensed under the
+Apache License 2.0 with additional terms. This skill is a rewrite: the instructions are written from scratch, the
+data comes from context.dev and open public feeds instead of treg's vendors, and growth.py is new code. It is not
+affiliated with or endorsed by Superdesign or treg.
+
+Changes from the original: context.dev replaces every paid data vendor; the traffic curve is replaced by named public
+stand-ins (brand searches, Wikipedia page views, news per month); keyword rankings and backlinks are
+left to OpenSEO's own skills; reviews (G2, app stores) and an optional context.dev monitor step are added; sample
+rules are adapted to the smaller public feeds.
