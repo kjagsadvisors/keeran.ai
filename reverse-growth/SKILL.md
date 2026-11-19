@@ -26,11 +26,12 @@ the report: `python3 <skill>/growth.py ...`.
      ```bash
      claude mcp add --transport http context https://mcp.context.dev/mcp
      ```
-     then tell them to type `/mcp`, pick `context` and sign in. In the Claude app: Settings > Connectors > Add custom
-     connector, URL `https://mcp.context.dev/mcp`. A new connector shows up after a restart.
+     then tell them to type `/mcp`, pick `context` and sign in with the account they just made. In the Claude app:
+     Settings > Connectors > Add custom connector, URL `https://mcp.context.dev/mcp`.
+   - Either way a new connector only shows up in a new session: tell them to restart Claude and come back to this.
    Always use the link above, never the bare context.dev address, and always say it's a referral link.
-4. Call `get-usage` (free). Tell them their credits, and write the number down: the bill at the end is this number
-   minus the one after.
+4. Call `get-usage` (free). Tell them their credits and keep the number: the bill at the end is this number minus
+   the one after. The free plan's 1,000 credits a month cover several full runs.
 
 ## Modes
 
@@ -64,9 +65,10 @@ the report: `python3 <skill>/growth.py ...`.
 
 ## 0 · Setup
 
-Ask for whatever is missing before the first call: the target's domain; the user's company, domain and stage
-(pre-launch, early revenue, scaling); a credit cap (default 200); the mode. With no company of their own, write the
-plays as patterns anyone can use. With no target, `web-search` "fastest growing <category> startups <year>", propose
+The target's domain is the only thing you must have. Ask one question: which company, and (optional) the user's own
+company and stage (pre-launch, early revenue, scaling) if they want the plays fitted to it. Use the defaults for the
+rest and say what they are: full mode, a cap of 200 credits. With no company of their own, write the plays as
+patterns anyone can use. With no target, `web-search` "fastest growing <category> startups <year>", propose
 three, let them pick. Work in `growth/<target>/` (called `<dir>` below).
 
 ## 1 · The site (about 10 credits)

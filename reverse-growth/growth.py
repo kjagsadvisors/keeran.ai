@@ -1192,13 +1192,15 @@ def cmd_report(args):
 
 def cmd_setup(args):
     ok = True
-    for mod, why, fix in (("PIL", "thumbnails and contact sheets", "pip3 install pillow"), ("markdown", "the HTML report", "pip3 install markdown")):
+    for mod, why, fix in (("PIL", "thumbnails and contact sheets", "python3 -m pip install --user pillow"), ("markdown", "the HTML report", "python3 -m pip install --user markdown")):
         try:
             __import__(mod)
             print(f"ok  {mod}: {why}")
         except ImportError:
             ok = False
             print(f"!!  {mod} is missing ({why}). Fix: {fix}")
+    if not ok:
+        print("    (if pip refuses with 'externally-managed-environment', add --break-system-packages or use a virtual environment)")
     print("ok  Python " + sys.version.split()[0])
     print("context.dev does the scraping: check that its tools (web-scrape, web-search, get-news-search, get-usage) are connected, then call get-usage.")
     return ok

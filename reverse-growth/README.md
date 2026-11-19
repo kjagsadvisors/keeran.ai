@@ -3,9 +3,32 @@
 Give Claude a company. Get back how it grows: when it took off, what it does on each channel, what its best posts have
 in common, and ten plays to copy, each with a prompt ready to paste.
 
-It runs on [context.dev](https://link.context.dev/keeran-jagadesan) (referral link: Keeran may earn a commission;
-code `KEERAN25OFF` takes 25% off the first 6 months of a paid plan). The free plan's 1,000 credits a month cover
-six or more full teardowns.
+## Set it up in one paste
+
+1. **Make a free context.dev account:** https://link.context.dev/keeran-jagadesan. It does the scraping. The free plan
+   gives you 1,000 credits a month with no card, and a full run used 99 on my test, so the free plan is enough for
+   now. If you upgrade later, code `KEERAN25OFF` takes 25% off your first 6 months. (That's my referral link: I may
+   earn a commission.)
+2. **Paste this into Claude Code** (the Code tab in the Claude desktop app works):
+
+   ```
+   Set up the reverse-growth skill from https://github.com/kjagsadvisors/keeran.ai for me.
+
+   1. Download the repo to a temporary folder and copy its reverse-growth folder to ~/.claude/skills/reverse-growth.
+   2. Read its SKILL.md and take me through the Onboarding section, one step at a time. Run the commands yourself where you can.
+   3. If I need to restart Claude, tell me, and I'll paste this prompt again.
+   4. Once context.dev is connected, ask me for the company I want to reverse engineer (and my own company, if I want the plays fitted to it), then run the skill. Use its defaults for everything else.
+   ```
+
+   Claude downloads the skill, checks your setup and connects context.dev with you. You sign in to context.dev once.
+   If it asks you to restart, restart and paste the same prompt again.
+3. **Name a company.** After the first time, this is all you type:
+
+   ```
+   /reverse-growth how does gamma.app grow?
+   ```
+
+The same steps, with what it found on a real company: https://keeranai.com/reverse-growth
 
 ## What it reads
 
@@ -21,16 +44,11 @@ six or more full teardowns.
 
 It can't see traffic, keyword rankings or backlinks. Connect OpenSEO for those.
 
-## Install
+## Install by hand
 
-Copy this folder into `~/.claude/skills/` (or your project's `.claude/skills/`), then in Claude Code:
-
-```
-/reverse-growth how does gamma.app grow?
-```
-
-Needs Python 3.9+, `pip3 install pillow markdown`, and the context.dev connector
-(`claude mcp add --transport http context https://mcp.context.dev/mcp`). The skill walks you through it.
+Copy this folder into `~/.claude/skills/` (or your project's `.claude/skills/`). It needs Python 3.9+,
+`python3 -m pip install --user pillow markdown`, and the context.dev connector
+(`claude mcp add --transport http context https://mcp.context.dev/mcp`, then `/mcp` to sign in, then restart).
 
 ## What you get
 
