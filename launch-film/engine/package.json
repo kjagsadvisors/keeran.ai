@@ -1,0 +1,22 @@
+{
+  "name": "launch-film-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "launch-film: a launch film for any product, set in the Claude app, voiced by you",
+  "scripts": {
+    "studio": "npx remotion studio",
+    "render": "npx remotion render src/index.ts Film out/film.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.425",
+    "@remotion/google-fonts": "4.0.425",
+    "@remotion/paths": "4.0.425",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "4.0.425"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}

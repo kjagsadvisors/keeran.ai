@@ -1,0 +1,34 @@
+{
+  "title": "Take One launch",
+  "voice": "voice",
+  "fixes": {"mix": "mics", "max": "Mac's"},
+  "brand": {"name": "take one.", "sub": "Voice studio", "accent": "#2957e9", "mark": "assets/mark.svg"},
+  "opener": {"labels": ["line 01", "MacBook mic", "take kept", "−16 LUFS"]},
+  "claude": {
+    "skill": "voice-studio",
+    "prompt": "record my voiceover",
+    "title": "Record my voiceover",
+    "thinking": "Setting up your studio…",
+    "reply": "Your studio is ready. Record each line, keep your best take, and tell me when you're done.",
+    "card": {"title": "Take One", "sub": "Voice studio · Artifact", "button": "Open"}
+  },
+  "beats": [
+    {"line": 1, "scene": "screen", "image": "assets/studio.png", "click": [0.722, 0.81],
+     "imageVertical": "assets/studio-vertical.png", "clickVertical": [0.627, 0.785], "palette": "sky"},
+    {"line": 2, "scene": "screen", "image": "assets/sound-input.png", "size": 0.63, "palette": "plum"},
+    {"line": 3, "scene": "type"},
+    {"line": 4, "until": "the audio,", "scene": "chips", "chips": ["Dead air cut", "Room noise down", "Every line level", "Mastered to −16 LUFS"],
+     "wave": true, "waveLabels": ["MacBook Pro microphone · raw", "Cleaned"]},
+    {"scene": "compare", "before": "voice/takes/02.wav", "after": "voice/lines/02.wav", "length": 1.5,
+     "labels": [["Before", "MacBook mic, raw"], ["After", "Take One"]], "gapBefore": 0.25},
+    {"line": 4, "from": "and Claude", "scene": "list", "prefix": "Claude can use it for", "items": ["Reels", "Ads", "VSLs", "Podcasts"],
+     "final": "anything.", "on": "anything", "gapBefore": 0.25},
+    {"line": 5, "scene": "chat", "typeFrom": "put", "gapBefore": 0.4,
+     "history": [{"user": "Voiceover finished for Take One launch."}, {"claude": "Got all 6 takes. Trimmed, cleaned and leveled: voiceover.wav, 0:17."}],
+     "thinking": "Cutting it together…", "reply": "Here's your cut.", "result": {"label": "take-one-launch.mp4"}},
+    {"line": 6, "scene": "end", "keyword": "VOICE"}
+  ],
+  "music": {"file": null, "firstHit": 3.93, "db": -15.5},
+  "gap": 0.3,
+  "lufs": -16.4
+}
