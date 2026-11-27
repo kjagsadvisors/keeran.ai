@@ -1,6 +1,6 @@
 ---
 name: voice-studio
-description: Record your own voiceover one line at a time in Take One, a voice studio Claude puts in your Claude account as a private artifact that installs as a Mac app and records your Mac's mic, then get it back as one clean, mastered track with timings and captions. Claude splits the script into takes, the user records each line right in the studio (installed as an app from the Claude desktop app) or drops in files from a phone, listens, keeps the best take and taps Ready for edit; Claude pulls the takes straight out of the studio, trims the dead air, cleans and levels every line, joins them and masters to -16 LUFS, then can put the finished video back in the studio to watch. Use when someone wants to record a voiceover in their own voice, a "voice studio", a teleprompter-style line-by-line recording, says "Voiceover finished for <title>", or wants their own voice instead of AI voices for a reel, ad, VSL, explainer or launch video.
+description: Record your own voiceover one line at a time in Take One, a voice studio Claude puts in your Claude account as a private artifact that installs as a Mac app and records your Mac's mic, then get it back as one clean, mastered track with timings and captions. Claude splits the script into takes, the user records each line right in the studio (installed as an app from the Claude desktop app) or drops in files from a phone, listens, keeps the best take and taps Ready for edit; Claude pulls the takes straight out of the studio, runs them through Auphonic (the user's own free account, set up once with the key kept in the Mac's Keychain), trims the dead air, levels every line, joins them and masters to -16 LUFS, then can put the finished video back in the studio to watch. Use when someone wants to record a voiceover in their own voice, a "voice studio", a teleprompter-style line-by-line recording, says "Voiceover finished for <title>", or wants their own voice instead of AI voices for a reel, ad, VSL, explainer or launch video.
 ---
 
 # voice-studio
@@ -23,13 +23,29 @@ clicks, never Claude's. Anywhere else the studio offers **Install to record here
 ## Onboarding (first run)
 
 1. `python3 <skill>/voice_studio.py check`. If ffmpeg is missing, show the install line it prints and offer to run it.
-2. Look for the Artifact and ArtifactData tools (load them with ToolSearch if they're deferred). Take One needs them:
+   It also reports Apple's command line tools (the recorder) and Auphonic.
+2. **Auphonic, the most important step.** It does the main cleanup, and the voice sounds noticeably worse without it.
+   If `check` printed "OK: Auphonic account …", skip ahead. Otherwise walk them through it, with browser control when
+   this session has it (Claude in Chrome, else the built-in browser; without either, give them the links):
+   1. Open https://auphonic.com/accounts/register/ and let them make a free account (2 hours of audio a month, no
+      card). The email, password and verification code are theirs: never type them, never sign in for them.
+   2. Once they're signed in, open https://auphonic.com/accounts/settings/#api-key. Ask them to create an API key
+      named "Claude voice studio" and copy it (its copy button, or select it and press Cmd+C). **Never read, zoom
+      into, screenshot or type the key.** If you need to see the page, look before the key exists.
+   3. Run `python3 <skill>/voice_studio.py auphonic-key`. It takes the key from the clipboard, checks it with Auphonic,
+      saves it in the Mac's Keychain (service `auphonic-api-key`) and clears the clipboard. It prints only the account
+      name and credits left. If it says the clipboard doesn't hold a key, ask them to copy it again.
+   4. If `check` flagged numpy as missing, run `python3 -m pip install --user numpy` (it lines the takes back up
+      after Auphonic's free-plan jingle).
+   Never put the key in a file in the project, in chat, or in a command you echo. Not on a Mac: they set
+   `AUPHONIC_API_KEY` in their environment, and `auphonic-key --stdin` can check it.
+3. Look for the Artifact and ArtifactData tools (load them with ToolSearch if they're deferred). Take One needs them:
    they're in the Code tab of the Claude desktop app. Without them, say so and stop.
-3. Find their studio: read `~/.claude/voice-studio.json` (`{"studio": "<url>"}`). If it's missing, publish one:
+4. Find their studio: read `~/.claude/voice-studio.json` (`{"studio": "<url>"}`). If it's missing, publish one:
    Artifact `publish` with `file_path: <skill>/studio.html`, `capabilities: {"db": {}, "assets": {}, "downloads": true, "desktop": {}}`,
    `icon: "mic"`, description "My voice studio: one line at a time." Write the URL it returns to
    `~/.claude/voice-studio.json`. It's private to them; nobody else can open it unless they share it.
-4. Give them the link and how to record in it: open it in the Claude desktop app and press **Install to record here**
+5. Give them the link and how to record in it: open it in the Claude desktop app and press **Install to record here**
    (or Install as app in the artifact's menu), open Take One from the Dock, press Record or Space for each line, keep
    the best take, tap Ready for edit, then tell me. On a phone or another computer: record each line anywhere and drop
    it on its card.
@@ -101,12 +117,16 @@ Outputs in `<dir>`: `voiceover.wav` and `voiceover.mp3` (the track), `lines/NN.w
 Options: `--gap 0.5` for more air between lines, `--lufs -14` for louder, `--no-gate` to leave the room tone in,
 `--no-trim` to keep whole files, `--tail 0.4` if line endings sound clipped.
 
-**Auphonic (optional, better on rough rooms):** `clean <dir> --auphonic` sends all the takes to
-[Auphonic](https://auphonic.com) as one production first (leveler, dynamic noise reduction, filtering), using their own
-key. Auphonic's free plan is 2 hours a month, bills 3 minutes minimum per production and adds a short jingle, which
-`auphonic.py` finds and cuts (it needs `pip install numpy` for that). The key: Auphonic > Account Settings > API Key,
-then `security add-generic-password -a "$USER" -s auphonic-api-key -U -w` on a Mac, or `AUPHONIC_API_KEY=...` in a
-`.env` in the project. Cleaned files are cached as `takes/NN.auph.wav`; `--fresh` redoes them.
+**Auphonic runs first, automatically, whenever their key is set up** (onboarding step 2). All the takes go to
+[Auphonic](https://auphonic.com) as ONE production, then come back split at the exact same sample boundaries. The
+settings are fixed on purpose, so keep them: filtering on, Adaptive Leveler on, loudness -16 LUFS, max peak -1.5 dBTP,
+dynamic noise reduction at 12 dB, de-reverb and de-breath off, and the silence, filler, cough and music cutters **off**.
+The cutters would change the timing, and the edit is timed to the takes. Don't swap in an Auphonic preset. One
+production for all the takes matters too: Auphonic bills at least 3 minutes per production. The free plan adds a short
+jingle; `auphonic.py` finds where the takes start by cross-correlation, cuts it off and checks every line lines up
+before splitting. On their own Auphonic, the local gate is skipped: Auphonic already pulls the room down, and a gate on
+top eats the quiet ends of words. Cleaned files are cached as `takes/NN.auph.wav`; `--fresh` redoes them,
+`--no-auphonic` skips it. Before a big batch, `voice_studio.py auphonic-check` shows the credits left.
 
 **Check before handing it over.** Claude can't hear audio, so say that, and check the numbers instead: the table
 `clean` prints (how much was cut before and after each line, each line's level and gain), the final LUFS and true peak.

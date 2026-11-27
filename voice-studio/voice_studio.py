@@ -298,6 +298,11 @@ def cmd_clean(a):
             die(f"Dropouts in {msg}: the recorder missed bits of the voice, so these lines will sound choppy. "
                 "Record them again (or pass --force-dropouts to clean them anyway).")
         print(f"Warning: dropouts in {msg}.", file=sys.stderr)
+    if not a.no_auphonic and not a.auphonic and auphonic_key():
+        a.auphonic = True  # a key is set up: Auphonic is the default cleanup
+    if not a.auphonic and not a.no_auphonic:
+        print("Auphonic isn't set up, so the takes are only cleaned on this Mac. "
+              "Run `voice_studio.py auphonic-check` to see why, or set it up for a much cleaner voice.", file=sys.stderr)
     if a.auphonic:
         auph = [p.with_name(p.stem + ".auph.wav") for p in sources]
         if a.fresh or not all(q.exists() and q.stat().st_mtime >= p.stat().st_mtime for p, q in zip(sources, auph)):
@@ -405,6 +410,72 @@ def cmd_clean(a):
         print(json.dumps({"lines": report, "timings": timings, "lufs": final["input_i"], "true_peak": final["input_tp"]}))
 
 
+AUPHONIC_SERVICE = "auphonic-api-key"   # Keychain service name (auphonic.py reads the same one)
+
+
+def auphonic_key():
+    sys.path.insert(0, str(HERE))
+    import auphonic  # noqa: E402  (same folder)
+    return auphonic.load_key()
+
+
+def auphonic_user(key):
+    """Auphonic's account info for a key, or raises with Auphonic's answer. Never echoes the key."""
+    import urllib.error
+    import urllib.request
+    req = urllib.request.Request("https://auphonic.com/api/user.json", headers={"Authorization": f"bearer {key}"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read()).get("data", {})
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Auphonic said HTTP {e.code}") from None
+
+
+def describe_account(u):
+    credits = u.get("credits")
+    left = f", {float(credits):.1f} h of credits left" if credits is not None else ""
+    return f"Auphonic account {u.get('username') or u.get('email') or '(unnamed)'}{left}"
+
+
+def cmd_auphonic_check(_):
+    key = auphonic_key()
+    if not key:
+        die("No Auphonic key yet. Set it up: make a free account at https://auphonic.com/accounts/register/, create an API "
+            "key at https://auphonic.com/accounts/settings/#api-key, copy it, then run: voice_studio.py auphonic-key")
+    try:
+        print("OK: " + describe_account(auphonic_user(key)))
+    except RuntimeError as e:
+        die(f"The stored Auphonic key doesn't work ({e}). Create a new one at https://auphonic.com/accounts/settings/#api-key, "
+            "copy it, then run: voice_studio.py auphonic-key")
+
+
+def cmd_auphonic_key(a):
+    """Takes the key from the clipboard (or stdin), checks it with Auphonic, stores it, and wipes the clipboard.
+    The key is never printed, logged or written to a file in the project."""
+    if a.stdin:
+        key = sys.stdin.read().strip()
+    elif sys.platform == "darwin":
+        key = run(["pbpaste"], text=True).stdout.strip()
+    else:
+        die("Pipe the key in instead: voice_studio.py auphonic-key --stdin")
+    if not re.fullmatch(r"[A-Za-z0-9_\-.]{16,200}", key or ""):
+        die("That isn't an Auphonic API key. On https://auphonic.com/accounts/settings/#api-key, "
+            "create a key, copy it, and run this again.")
+    try:
+        user = auphonic_user(key)
+    except RuntimeError as e:
+        die(f"Auphonic didn't accept that key ({e}). Copy it again from https://auphonic.com/accounts/settings/#api-key.")
+    if sys.platform == "darwin":
+        r = subprocess.run(["security", "add-generic-password", "-a", __import__("getpass").getuser(), "-s", AUPHONIC_SERVICE,
+                            "-U", "-w", key], capture_output=True, text=True)
+        if r.returncode:
+            die("Couldn't save the key to your Keychain: " + r.stderr.strip()[:200])
+        subprocess.run(["pbcopy"], input="", text=True)  # don't leave the key on the clipboard
+        print(f"OK: saved to your Keychain (service {AUPHONIC_SERVICE}) and cleared the clipboard. " + describe_account(user))
+    else:
+        print("OK: the key works (" + describe_account(user) + "). Store it as AUPHONIC_API_KEY in your environment.")
+
+
 def cmd_check(_):
     need_ffmpeg()
     v = run(["ffmpeg", "-version"], text=True).stdout.splitlines()[0]
@@ -415,13 +486,29 @@ def cmd_check(_):
         else:
             print("!! Apple's command line tools are missing, so Take One can't record inside the app. "
                   "Fix: xcode-select --install   (dropping in recorded files still works)")
+    try:
+        import numpy  # noqa: F401
+    except ImportError:
+        print("!! numpy is missing (needed to line takes back up after Auphonic's free-plan jingle). Fix: python3 -m pip install --user numpy")
+    key = auphonic_key()
+    if not key:
+        print("!! Auphonic isn't set up yet (it does the main cleanup). Next: the Auphonic step in SKILL.md.")
+    else:
+        try:
+            print("OK: " + describe_account(auphonic_user(key)))
+        except RuntimeError as e:
+            print(f"!! The stored Auphonic key doesn't work ({e}). Redo the Auphonic step in SKILL.md.")
 
 
 def main():
     ap = argparse.ArgumentParser(description="Voice Studio: your recorded lines → one clean voiceover track.")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    sub.add_parser("check", help="check ffmpeg is installed").set_defaults(fn=cmd_check)
+    sub.add_parser("check", help="check ffmpeg, the recorder tools and Auphonic").set_defaults(fn=cmd_check)
+    sub.add_parser("auphonic-check", help="check the stored Auphonic key and credits").set_defaults(fn=cmd_auphonic_check)
+    k = sub.add_parser("auphonic-key", help="store the Auphonic API key from the clipboard (never printed)")
+    k.add_argument("--stdin", action="store_true", help="read the key from stdin instead of the clipboard")
+    k.set_defaults(fn=cmd_auphonic_key)
 
     s = sub.add_parser("seed", help="script → studio document")
     s.add_argument("title")
@@ -446,7 +533,8 @@ def main():
     c.add_argument("--line-lufs", type=float, default=-18.0, help="every line is set to this first (default -18)")
     c.add_argument("--lufs", type=float, default=-16.0, help="final loudness (default -16, right for Reels/TikTok/YouTube)")
     c.add_argument("--true-peak", type=float, default=-1.5, help="true peak ceiling in dBTP (default -1.5)")
-    c.add_argument("--auphonic", action="store_true", help="clean the takes with Auphonic first (your own key)")
+    c.add_argument("--auphonic", action="store_true", help="require Auphonic (it is used automatically when a key is set up)")
+    c.add_argument("--no-auphonic", action="store_true", help="skip Auphonic even if a key is set up")
     c.add_argument("--fresh", action="store_true", help="with --auphonic: process again instead of reusing")
     c.add_argument("--no-trim", action="store_true", help="keep each whole file")
     c.add_argument("--no-gate", action="store_true", help="leave the room tone in the pauses")
