@@ -4,6 +4,8 @@ Your own voice on your videos, with nothing but your Mac's mic. Claude builds yo
 installs it as an app on your computer. You record one line at a time, listen back, and keep the best take. Claude
 pulls the takes out, cleans them up, and hands you one finished voiceover track.
 
+![Take One, the voice studio Claude builds you](studio.jpg)
+
 - **One line at a time.** Fluff a line, redo that line. Nothing else changes.
 - **No extra mic.** It records your Mac's built-in mic with Apple's own recorder, and checks every take for dropouts
   the moment you stop.
